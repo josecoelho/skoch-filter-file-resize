@@ -26,6 +26,7 @@ class Skoch_Filter_File_Resize implements Zend_Filter_Interface
     protected $_height = null;
     protected $_keepRatio = true;
     protected $_keepSmaller = true;
+    protected $_quality = null;
     protected $_directory = null;
     protected $_cropToFit = false;
     protected $_adapter = 'Skoch_Filter_File_Resize_Adapter_Gd';
@@ -35,7 +36,7 @@ class Skoch_Filter_File_Resize implements Zend_Filter_Interface
      *
      * @param Zend_Config|array $options Some options. You may specify: width, 
      * height, keepRatio, keepSmaller (do not resize image if it is smaller than
-     * expected), directory (save thumbnail to another directory),
+     * expected), quality, directory (save thumbnail to another directory),
      * adapter (the name or an instance of the desired adapter)
      * @return Skoch_Filter_File_Resize An instance of this filter
      */
@@ -64,6 +65,9 @@ class Skoch_Filter_File_Resize implements Zend_Filter_Interface
         }
         if (isset($options['keepSmaller'])) {
             $this->_keepSmaller = $options['keepSmaller'];
+        }
+        if (isset($options['quality'])) {
+            $this->_quality = $options['quality'];
         }
         if (isset($options['directory'])) {
             $this->_directory = $options['directory'];
@@ -118,6 +122,6 @@ class Skoch_Filter_File_Resize implements Zend_Filter_Interface
  
         return $this->_adapter->resize($this->_width, $this->_height,
             $this->_keepRatio, $value, $target, $this->_keepSmaller,
-            $this->_cropToFit);
+            $this->_cropToFit, $this->_quality);
     }
 }

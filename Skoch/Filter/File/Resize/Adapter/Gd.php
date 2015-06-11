@@ -20,7 +20,7 @@ require_once 'Skoch/Filter/File/Resize/Adapter/Abstract.php';
 class Skoch_Filter_File_Resize_Adapter_Gd extends
     Skoch_Filter_File_Resize_Adapter_Abstract
 {
-    public function resize($width, $height, $keepRatio, $file, $target, $keepSmaller = true, $cropToFit = false)
+    public function resize($width, $height, $keepRatio, $file, $target, $keepSmaller = true, $cropToFit = false, $quality = null)
     {
         list($oldWidth, $oldHeight, $type) = getimagesize($file);
  
@@ -58,10 +58,16 @@ class Skoch_Filter_File_Resize_Adapter_Gd extends
  
         switch ($type) {
             case IMAGETYPE_PNG:
-                imagepng($thumb, $target);
+				if ($quality === null) {
+					$quality = 0;
+				}
+                imagepng($thumb, $target, $quality);
                 break;
             case IMAGETYPE_JPEG:
-                imagejpeg($thumb, $target);
+				if ($quality === null) {
+					$quality = 75;
+				}
+                imagejpeg($thumb, $target, $quality);
                 break;
             case IMAGETYPE_GIF:
                 imagegif($thumb, $target);
