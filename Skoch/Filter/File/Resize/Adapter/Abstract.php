@@ -18,7 +18,7 @@
  */
 abstract class Skoch_Filter_File_Resize_Adapter_Abstract
 {
-    abstract public function resize($width, $height, $keepRatio, $file, $target, $keepSmaller = true, $cropToFit = false);
+    abstract public function resize($width, $height, $keepRatio, $file, $target, $keepSmaller = true, $cropToFit = false, $quality = null);
     
     protected function _calculateWidth($oldWidth, $oldHeight, $width, $height)
     {
